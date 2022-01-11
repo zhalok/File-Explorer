@@ -52,20 +52,39 @@ public class FileExplorer {
         fileExplorer.show_root();
 
         while (true) {
-            System.out.println("Please select a directory");
+            System.out.println("Please give your desired command");
+            Scanner scan_command = new Scanner(System.in);
+            Scanner scan_parameter = new Scanner(System.in);
+            String command = scan_command.nextLine();
+            command = command.trim();
+            if (command.matches("go to")) {
+                System.out.println("Please select a directory");
+                String directory = scan_parameter.nextLine();
 
-            Scanner scanner = new Scanner(System.in);
+                String path = fileExplorer.create_path(directory, dir_stack);
 
-            String directory = scanner.nextLine();
-            if (directory.matches("quit")) {
-                scanner.close();
+                dir_stack.add(directory);
+                // scanner.close();
+                fileExplorer.Explorer(path);
+            } else if (command.matches("go back")) {
+                int last_idx = dir_stack.size();
+                if (last_idx == 1) {
+                    System.out.println("You are at the root");
+                } else {
+                    dir_stack.remove(last_idx - 1);
+                    String path = fileExplorer.create_path("", dir_stack);
+                    fileExplorer.Explorer(path);
+                }
+
+            }
+
+            else if (command.matches("quit")) {
+                System.out.println("Good bye");
+                scan_command.close();
+                scan_parameter.close();
                 break;
             }
-            String path = fileExplorer.create_path(directory, dir_stack);
 
-            dir_stack.add(directory);
-            // scanner.close();
-            fileExplorer.Explorer(path);
         }
 
     }
