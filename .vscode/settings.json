@@ -1,0 +1,7 @@
+{
+	"editor.defaultFormatter": "formulahendry.code-runner",
+	"editor.formatOnSave": true,
+	"[java]": {
+		"editor.defaultFormatter": "redhat.java"
+	}
+}
